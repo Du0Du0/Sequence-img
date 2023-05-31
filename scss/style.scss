@@ -32,7 +32,20 @@ aside {
 	align-items: center;
 	font-size: 5vw;
 	color: #fff;
-	transition: 2s;
+	transition: 1.5s;
+
+	p {
+		position: relative;
+		top: -50px;
+	}
+	.bar {
+		width: 0%;
+		height: 2px;
+		background: #fff;
+		position: absolute;
+		left: 0%;
+		top: 50%;
+	}
 
 	&.off {
 		opacity: 0;

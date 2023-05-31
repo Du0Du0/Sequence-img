@@ -12,7 +12,11 @@ let count = 0;
 imgDOM.forEach((img) => {
 	img.onload = () => {
 		count++;
-		if (count === 200) {
+		const percent = parseInt((count / 200) * 100);
+		mask.querySelector('p').innerHTML = percent + '%';
+		mask.querySelector('.bar').style.width = percent + '%';
+
+		if (percent === 100) {
 			console.log('이미지 소스 로딩 완료');
 			mask.classList.add('off');
 
