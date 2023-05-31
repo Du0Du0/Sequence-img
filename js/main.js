@@ -1,31 +1,29 @@
-const frame = document.querySelector('figure');
+const target = 'figure';
+const num = 200;
 
-//동적 imgDOM 생성
-let imgs = '';
-
-for (let i = 0; i < 200; i++) {
-	imgs += `<img src='img/pic${i}.jpg' />`;
-}
-
-frame.innerHTML = imgs;
-
-const imgDOM = frame.querySelectorAll('img');
+//figure에 안쪽에 동적으로 200개 이미지 돔생성해서 리턴하는 함수 호출
+//동적으로 돔을 생성하자마자 리턴해주는 요소를 바로 변수에 담음
+const imgDOM = createImgs(target, num);
 
 //마우스무스시 포인터 좌표값 200분율로 변경
-window.addEventListener('mousemove', (e) => {
-	const percent = parseInt((e.clientX / window.innerWidth) * 200);
+window.addEventListener('mousemove', (e) => matchMove(imgDOM, num, e));
 
-	for (const img of imgDOM) img.style.display = 'none';
-	imgDOM[percent].style.display = 'block';
-});
+//동적 이미지 생성 함수
+function createImgs(target, num) {
+	const frame = document.querySelector(target);
+	let imgs = '';
+	for (let i = 0; i < num; i++) {
+		imgs += `<img src='img/pic${i}.jpg' />`;
+	}
+	frame.innerHTML = imgs;
+	//돔을 생성하자마자 바로 활용할 수 있도록 생성된 요소를 내보내주기까지하는 코드
+	return frame.querySelectorAll('img');
+}
 
-//백분율 구하는 공식
-// 현재수치(마우스 포인터 위치값) / 전체수치(브라우저 넓이값) *100
+//마우스 포인터 위치와 이미지 순서 매칭 함수
+function matchMove(arrEl, num, e) {
+	const percent = parseInt((e.clientX / window.innerWidth) * num);
 
-//console.log('outerWid', window.outerWidth);
-//console.log('innerWid', window.innerWidth);
-
-//백분율 구하는 공식
-//전체수치(브라우저 넓이 값)/ 현재수치(마우스 포인터 위치값) * 100 - 이건 백분율
-
-////전체수치(브라우저 넓이 값)/ 현재수치(마우스 포인터 위치값) * 245 - 이건245분율
+	for (const img of arrEl) img.style.display = 'none';
+	arrEl[percent].style.display = 'block';
+}
